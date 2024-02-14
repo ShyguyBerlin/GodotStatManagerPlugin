@@ -1,0 +1,131 @@
+[gd_scene load_steps=4 format=3 uid="uid://d022xhnk1hvdm"]
+
+[ext_resource type="Script" path="res://addons/stat_manager_utils/StatEditor/StatEditor.gd" id="1_hfdkw"]
+[ext_resource type="PackedScene" uid="uid://desjh1nx54ly7" path="res://addons/stat_manager_utils/StatEditor/StatGraphFullView.tscn" id="2_m8wnx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aovqh"]
+font_size = 20
+
+[node name="StatEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_hfdkw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[node name="Toolbar" type="HBoxContainer" parent="ColorRect/VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 28.67
+offset_top = -20.0
+offset_right = 328.67
+offset_bottom = 20.0
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="New" type="Button" parent="ColorRect/VBoxContainer/ColorRect/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "New"
+
+[node name="Open" type="Button" parent="ColorRect/VBoxContainer/ColorRect/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Open
+"
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/VBoxContainer/ColorRect"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -324.915
+offset_top = -20.0
+offset_right = -24.9141
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[node name="FileName" type="Label" parent="ColorRect/VBoxContainer/ColorRect/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -307.0
+offset_top = -14.0
+offset_bottom = 14.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "There is no loaded file"
+label_settings = SubResource("LabelSettings_aovqh")
+
+[node name="StatGraphView" parent="ColorRect/VBoxContainer" instance=ExtResource("2_m8wnx")]
+layout_mode = 2
+
+[node name="FileDialogOpen" type="FileDialog" parent="ColorRect"]
+unique_name_in_owner = true
+mode = 1
+title = "Open a File"
+initial_position = 1
+size = Vector2i(700, 450)
+popup_window = true
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("*.statres; Supported Resource")
+
+[node name="FileDialogNew" type="FileDialog" parent="ColorRect"]
+unique_name_in_owner = true
+title = "Create a new File"
+initial_position = 1
+size = Vector2i(700, 450)
+popup_window = true
+ok_button_text = "Save"
+filters = PackedStringArray("*.statres; Supported Resource")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/ColorRect/Toolbar/New" to="." method="NewButton_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/ColorRect/Toolbar/Open" to="." method="OpenButton_pressed"]
+[connection signal="file_selected" from="ColorRect/FileDialogOpen" to="." method="on_button_open_file"]
+[connection signal="file_selected" from="ColorRect/FileDialogNew" to="." method="on_button_new_file"]

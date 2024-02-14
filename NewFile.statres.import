@@ -1,0 +1,15 @@
+[remap]
+
+importer="stat_manager_import"
+type="GlobalStatConfigData"
+uid="uid://0n4nsgt1scne"
+path="res://.godot/imported/NewFile.statres-2b59c2d8913e0a8a1974774a7fe7b218.tres"
+
+[deps]
+
+source_file="res://NewFile.statres"
+dest_files=["res://.godot/imported/NewFile.statres-2b59c2d8913e0a8a1974774a7fe7b218.tres"]
+
+[params]
+
+my_option=false

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GlobalStatConfigData" load_steps=2 format=3 uid="uid://cgxy6kh03wjif"]
+
+[ext_resource type="Script" path="res://addons/stat_manager_utils/Resources/StatGlobalConfig.gd" id="1_egiuc"]
+
+[resource]
+script = ExtResource("1_egiuc")
+stats = Array[null]([])
+sets = Array[null]([])

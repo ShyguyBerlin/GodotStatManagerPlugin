@@ -1,0 +1,15 @@
+[remap]
+
+importer="stat_manager_import"
+type="GlobalStatConfigData"
+uid="uid://c8m05s8nl3fp2"
+path="res://.godot/imported/BeepFile.statres-3fbd7247f3051589fb357404a3798666.tres"
+
+[deps]
+
+source_file="res://BeepFile.statres"
+dest_files=["res://.godot/imported/BeepFile.statres-3fbd7247f3051589fb357404a3798666.tres"]
+
+[params]
+
+my_option=false

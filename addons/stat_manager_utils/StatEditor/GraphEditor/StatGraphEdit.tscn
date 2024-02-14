@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bljqpt88q3q6l"]
+
+[ext_resource type="Script" path="res://addons/stat_manager_utils/StatEditor/GraphEditor/StatGraphEdit.gd" id="1_gwkeo"]
+[ext_resource type="PackedScene" uid="uid://blfrbr4jahiko" path="res://addons/stat_manager_utils/StatEditor/GraphEditor/SetGraphNode.tscn" id="2_s2l3m"]
+
+[node name="GraphEdit" type="GraphEdit"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+show_grid = false
+snapping_enabled = false
+right_disconnects = true
+minimap_enabled = false
+show_zoom_label = true
+show_grid_buttons = false
+script = ExtResource("1_gwkeo")
+SetGraphNode = ExtResource("2_s2l3m")
+
+[node name="GraphNode" parent="." node_paths=PackedStringArray("graph_editor") instance=ExtResource("2_s2l3m")]
+layout_mode = 0
+slot/1/left_enabled = true
+slot/1/right_enabled = true
+slot/2/left_enabled = true
+slot/2/left_type = 1
+slot/2/right_enabled = true
+graph_editor = NodePath("..")
+
+[node name="GraphNode2" parent="." node_paths=PackedStringArray("graph_editor") instance=ExtResource("2_s2l3m")]
+layout_mode = 0
+offset_left = 622.0
+offset_top = 164.0
+offset_right = 937.0
+offset_bottom = 389.0
+position_offset = Vector2(622, 164)
+slot/2/left_type = 1
+slot/2/right_enabled = true
+graph_editor = NodePath("..")
+
+[node name="GraphElement" type="GraphElement" parent="."]
+layout_mode = 0
+offset_left = 215.0
+offset_top = 49.0
+offset_right = 684.0
+offset_bottom = 134.0
+position_offset = Vector2(215, 49)
+
+[connection signal="connection_request" from="." to="." method="_on_connection_request"]
+[connection signal="disconnection_request" from="." to="." method="_on_disconnection_request"]
+[connection signal="popup_request" from="." to="." method="_on_popup_request"]

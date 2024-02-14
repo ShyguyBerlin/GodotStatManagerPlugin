@@ -1,0 +1,104 @@
+[gd_scene load_steps=3 format=3 uid="uid://d022xhnk1hvdm"]
+
+[ext_resource type="Script" path="res://addons/stat_manager_utils/StatEditor/StatEditor.gd" id="1_hfdkw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aovqh"]
+font_size = 20
+
+[node name="StatEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_hfdkw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+
+[node name="Toolbar" type="HBoxContainer" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(300, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="New" type="Button" parent="ColorRect/VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "New"
+
+[node name="Open" type="Button" parent="ColorRect/VBoxContainer/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Open
+"
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect/VBoxContainer/Toolbar"]
+layout_mode = 2
+color = Color(0.145098, 0.168627, 0.203922, 1)
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer/Toolbar/ColorRect"]
+layout_mode = 2
+offset_left = -5.0
+offset_top = 8.0
+offset_right = -4.0
+offset_bottom = 31.0
+text = "My File"
+label_settings = SubResource("LabelSettings_aovqh")
+
+[node name="Control" type="Control" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+
+[node name="FileDialogOpen" type="FileDialog" parent="ColorRect"]
+unique_name_in_owner = true
+mode = 1
+title = "Open a File"
+initial_position = 1
+size = Vector2i(700, 450)
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("\"*.statres; Supported Resource\"")
+
+[node name="FileDialogNew" type="FileDialog" parent="ColorRect"]
+unique_name_in_owner = true
+title = "Create a new File"
+initial_position = 1
+size = Vector2i(700, 450)
+popup_window = true
+ok_button_text = "Save"
+filters = PackedStringArray("*.statres; Supported Resource")
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+visible = false
+layout_mode = 0
+offset_left = -254.0
+offset_top = -384.0
+offset_right = 1805.0
+offset_bottom = 1077.0
+mouse_filter = 2
+color = Color(1, 0.0784314, 1, 1)
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/Toolbar/New" to="." method="NewButton_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/Toolbar/Open" to="." method="OpenButton_pressed"]
+[connection signal="file_selected" from="ColorRect/FileDialogOpen" to="." method="File_selected"]
+[connection signal="file_selected" from="ColorRect/FileDialogNew" to="." method="File_selected"]
