@@ -1,7 +1,7 @@
 @tool
 extends Control
 
-@export var reference : GlobalStatConfigData
+@export var reference : GlobalStatConfigData : set = set_reference
 
 @onready var ButtonNew=%New
 @onready var ButtonOpen=%Open
@@ -10,6 +10,8 @@ extends Control
 @onready var FDOpen: FileDialog=%FileDialogOpen
 
 @onready var LabelFileName: Label=$%FileName
+
+@onready var stat_graph_view = %StatGraphView
 
 func _ready():
 	print(get_children())
@@ -72,6 +74,11 @@ func add_and_open_resource(resource : GlobalStatConfigData):
 		save_file(reference._last_save_path)
 	reference=resource
 	update_UI()
+
+func set_reference(new_reference : GlobalStatConfigData):
+	reference=new_reference
+	if stat_graph_view:
+		stat_graph_view.reference=reference
 
 func update_UI():
 	if is_instance_valid(reference):

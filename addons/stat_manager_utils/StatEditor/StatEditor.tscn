@@ -102,6 +102,7 @@ text = "There is no loaded file"
 label_settings = SubResource("LabelSettings_aovqh")
 
 [node name="StatGraphView" parent="ColorRect/VBoxContainer" instance=ExtResource("2_m8wnx")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="FileDialogOpen" type="FileDialog" parent="ColorRect"]

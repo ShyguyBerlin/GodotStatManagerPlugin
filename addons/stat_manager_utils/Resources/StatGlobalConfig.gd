@@ -16,16 +16,29 @@ enum statUtilizationType{
 
 @export var _last_save_path : String = ""
 
-@export var stats : Array[statConfig]
-@export var sets : Array[statSet]
+@export var stats : Array[statConfig] = []
+@export var sets : Array[statSet] = []
+
+signal appended_new_sets(sets_added :Array[statSet])
+signal appended_new_stats(stats_added :Array[statConfig])
 
 ##The defining properties of a stat
 class statConfig extends Resource:
 	var id:int
-	var name:String
+	var name:String 
 	var type:statUtilizationType
 
 class statSet extends Resource:
-	var name:String
-	var stats:Array[statConfig]
+	var name:String= "new Set"
+	var stats:Array[statConfig]=[]
+
+func append_new_set(new_set : statSet):
+	sets.append(new_set)
+	appended_new_sets.emit([new_set])
+
+func append_and_create_new_set()->statSet:
+	var new_set : statSet = statSet.new()
+	new_set.name="Unnamed"+str(sets.size())
+	append_new_set(new_set)
+	return new_set
 

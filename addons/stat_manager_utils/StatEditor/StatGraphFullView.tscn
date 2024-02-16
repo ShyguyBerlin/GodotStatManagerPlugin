@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://desjh1nx54ly7"]
+[gd_scene load_steps=4 format=3 uid="uid://desjh1nx54ly7"]
 
+[ext_resource type="Script" path="res://addons/stat_manager_utils/StatEditor/StatGraphView.gd" id="1_31naw"]
 [ext_resource type="PackedScene" uid="uid://bljqpt88q3q6l" path="res://addons/stat_manager_utils/StatEditor/GraphEditor/StatGraphEdit.tscn" id="1_448op"]
 [ext_resource type="Script" path="res://addons/stat_manager_utils/StatEditor/ToggleVisibilityButton.gd" id="1_kyxkl"]
 
@@ -12,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+script = ExtResource("1_31naw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -56,6 +58,7 @@ grow_vertical = 2
 scroll_horizontal_enabled = false
 
 [node name="GraphEdit" parent="HBoxContainer" instance=ExtResource("1_448op")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="StatListToggle" type="Button" parent="." node_paths=PackedStringArray("minion")]

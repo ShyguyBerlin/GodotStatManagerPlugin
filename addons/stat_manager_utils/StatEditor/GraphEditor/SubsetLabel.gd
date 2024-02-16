@@ -3,6 +3,8 @@ extends Label
 
 @export var underline_visible : bool : set = set_underline
 
+@onready var underline = %Underline
+
 var managing_graph_edit : GraphEdit
 var managing_graph_node : GraphNode
 
@@ -14,6 +16,6 @@ func insert_set_title(title : String):
 	text="> "+title
 
 func set_underline(vis: bool):
-	if $Underline:
-		$Underline.visible=vis
+	if underline:
+		underline.visible=vis
 	underline_visible=vis

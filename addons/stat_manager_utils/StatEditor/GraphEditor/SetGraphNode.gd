@@ -12,7 +12,7 @@ var linked_set : GlobalStatConfigData.statSet : set = set_linked_set
 func _ready():
 	createSetSlot()
 	createStatSlot()
-	set_slot_type_left(2,1)
+	update_UI()
 
 func createSetSlot():
 	var newLabel=label_node.instantiate()
@@ -21,11 +21,13 @@ func createSetSlot():
 	set_slot_enabled_left(SubSetSlots,true)
 	set_slot_enabled_right(SubSetSlots,true)
 	set_slot_type_left(SubSetSlots,0)
+	set_slot_type_right(SubSetSlots,0)
 	if SubSetSlots>0:
-		set_slot_enabled_left(SubSetSlots-1,false)
+		set_slot_enabled_right(SubSetSlots-1,false)
 		if graph_editor:
-			graph_editor.remap_connections(self,SubSetSlots-1,SubSetSlots)
+			graph_editor.remap_connections_port(self,SubSetSlots-1,SubSetSlots)
 	SubSetSlots+=1
+	update_UI()
 
 func createStatSlot():
 	pass
@@ -38,12 +40,30 @@ func set_linked_set(new_set : GlobalStatConfigData.statSet):
 	linked_set=new_set
 	update_UI()
 
-func connection_request(fromNode : StringName, fromSlot: int, slot : int):
-	#if fromNode.get_output_port_type(fromSlot)==get_input_port_type(slot):
+func connection_create(fromNode : StringName, fromSlot: int, slot : int):
+	if slot==SubSetSlots-1:
+		updateLabel(slot,fromNode)
+	createSetSlot()
 	pass
+
+func connection_delete(fromNode : StringName, fromSlot: int, slot: int):
+	if slot<SubSetSlots-1:
+		var slotchild = get_child(slot)
+		remove_child(slotchild)
+		slotchild.queue_free()
+		SubSetSlots-=1
+	if graph_editor:
+		graph_editor.call_deferred("shift_left_connections",self,slot,-1)
 
 func update_UI():
 	if linked_set:
-		title=linked_set.name
+		name=linked_set.name
 	else:
-		title="Unnamed"	
+		name="Unnamed"
+	title=name
+
+func updateLabel(slot: int,linkName : String):
+		var slotchild : Label= get_child(slot)
+		slotchild.text="implementing: "+linkName
+		slotchild.tooltip_text="This set is implementing all functionality of "+linkName+"."
+		slotchild.set_underline(false)

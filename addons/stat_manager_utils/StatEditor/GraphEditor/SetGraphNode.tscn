@@ -4,14 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://cwx2xjvllcuxj" path="res://addons/stat_manager_utils/StatEditor/GraphEditor/SubsetLabel.tscn" id="1_nlkxd"]
 
 [node name="GraphNode" type="GraphNode"]
-offset_left = 211.0
-offset_top = 161.0
-offset_right = 526.0
-offset_bottom = 386.0
+offset_left = 186.0
+offset_top = 135.0
+offset_right = 501.0
+offset_bottom = 360.0
 mouse_filter = 1
 position_offset = Vector2(211, 161)
 title = "Bla"
-slot/0/left_enabled = true
+slot/0/left_enabled = false
 slot/0/left_type = 0
 slot/0/left_color = Color(1, 1, 1, 1)
 slot/0/left_icon = null
@@ -20,40 +20,5 @@ slot/0/right_type = 0
 slot/0/right_color = Color(1, 1, 1, 1)
 slot/0/right_icon = null
 slot/0/draw_stylebox = true
-slot/1/left_enabled = false
-slot/1/left_type = 0
-slot/1/left_color = Color(1, 1, 1, 1)
-slot/1/left_icon = null
-slot/1/right_enabled = false
-slot/1/right_type = 0
-slot/1/right_color = Color(1, 1, 1, 1)
-slot/1/right_icon = null
-slot/1/draw_stylebox = true
-slot/2/left_enabled = false
-slot/2/left_type = 0
-slot/2/left_color = Color(1, 1, 1, 1)
-slot/2/left_icon = null
-slot/2/right_enabled = false
-slot/2/right_type = 0
-slot/2/right_color = Color(1, 1, 1, 1)
-slot/2/right_icon = null
-slot/2/draw_stylebox = true
 script = ExtResource("1_2tprl")
 label_node = ExtResource("1_nlkxd")
-
-[node name="SubsetLabel" parent="." instance=ExtResource("1_nlkxd")]
-layout_mode = 2
-underline_visible = false
-
-[node name="Underline" parent="SubsetLabel" index="0"]
-visible = false
-
-[node name="SubStatLabel" parent="." instance=ExtResource("1_nlkxd")]
-layout_mode = 2
-underline_visible = false
-
-[node name="Underline" parent="SubStatLabel" index="0"]
-visible = false
-
-[editable path="SubsetLabel"]
-[editable path="SubStatLabel"]

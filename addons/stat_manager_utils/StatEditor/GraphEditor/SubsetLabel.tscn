@@ -10,6 +10,7 @@ script = ExtResource("1_304gc")
 underline_visible = true
 
 [node name="Underline" type="ColorRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.95

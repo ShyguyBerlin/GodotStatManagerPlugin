@@ -9,15 +9,19 @@ var _error_hint : String= ""
 
 const stat_info_separator = " - "
 const config_part_separator = "#"
+const set_name_statlist_separator = ": "
+const set_stats_separator = ", "
+
 
 func parse_raw_statres(input_strings : String) -> Error:
 	_error_hint=""
 	var lines = input_strings.split("\n")
 	
 	var StatConfigs : Array[GlobalStatConfigData.statConfig] = []
+	var fastAccessStatDict={}
 	var SetConfigs : Array[GlobalStatConfigData.statSet] = []
-	
 	var i=0
+	### reading StatConfigs
 	while(i < lines.size() and not lines[i].begins_with(config_part_separator)):
 		var lineData = lines[i].split(stat_info_separator)
 		if lineData.size()!=2:
@@ -34,12 +38,28 @@ func parse_raw_statres(input_strings : String) -> Error:
 			"SCALING":
 				config.type=GlobalStatConfigData.statUtilizationType.SCALING
 			_:
-				_error_hint="wrongly declared stat usage type in line "+str(i+1)
+				_error_hint="wrongly declared stat usage type in line "+str(i)
 				return ERR_PARSE_ERROR
 		StatConfigs.append(config)
+		fastAccessStatDict[config.name]=config
 		i+=1
+	i+=1
+	### reading set configs
 	while(i < lines.size()):
-		print(lines[i]) 
+		var config : GlobalStatConfigData.statSet = GlobalStatConfigData.statSet.new()
+		var data = lines[i].split(set_name_statlist_separator)
+		if data.size()!=2:
+			_error_hint="line "+str(i)+" is wrongly separated into parts"
+			return ERR_PARSE_ERROR
+		config.name=data[0]
+		var statReferences=data[1].split(set_stats_separator)
+		for statRef in statReferences:
+			if statRef in fastAccessStatDict:
+				config.stats.append(fastAccessStatDict[statRef])
+			else:
+				_error_hint="line "+str(i)+" holds references to the non-existing stat "+statRef+", check for typos maybe"
+				return ERR_PARSE_ERROR
+		SetConfigs.append(config)
 		i+=1
 	_build_res=GlobalStatConfigData.new()
 	_build_res.stats=StatConfigs
@@ -62,7 +82,14 @@ func parse_config_resource(resource : GlobalStatConfigData) -> Error:
 				line+="SCALING"
 		lines.append(line)
 	
-	lines.append("#####")
+	lines.append(config_part_separator+"####")
+	for i : GlobalStatConfigData.statSet in resource.sets:
+		var line=i.name+set_name_statlist_separator
+		for stat in i.stats:
+			line+=stat.name
+			line+=set_stats_separator
+		line.substr(0,line.length()-set_stats_separator.length())
+	
 	_build_text="\n".join(lines)
 	return OK
 
